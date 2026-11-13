@@ -1,0 +1,22 @@
+[Unit]
+Description=limelight_canbus
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/bash -c 'cfg(){ ethtool "$@"; rc=$?; [ $rc -eq 0 ] || [ $rc -eq 80 ]; } && for i in $(seq 1 50); do ip link show can_s0 >/dev/null 2>&1 && ip link show can_s1 >/dev/null 2>&1 && ip link show can_s2 >/dev/null 2>&1 && ip link show can_s3 >/dev/null 2>&1 && ip link show can_s4 >/dev/null 2>&1 && break; sleep 0.1; done && \
+  ip link set can_s0 down && \
+  ip link set can_s0 type can bitrate 1000000 fd off && \
+  ip link set can_s0 up && \
+  ip link set can_s1 down && \
+  ip link set can_s1 type can bitrate 1000000 fd off && \
+  ip link set can_s1 up && \
+  modprobe robot_heartbeat && \
+  modprobe i2c-dev'
+Restart=on-failure
+RestartSec=5
+StartLimitInterval=0
+StartLimitBurst=1000
+
+[Install]
+WantedBy=default.target

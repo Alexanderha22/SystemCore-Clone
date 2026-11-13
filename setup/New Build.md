@@ -1,17 +1,6 @@
 # New Build Guide
 A simple step by step guide to configuring the raspberry pi for a CAN HAT.
 
-## The Mission
-
-Our team uses summer projects to prepare our developers for the latest WPILib changes before
-the competition season begins. However, as many teams know, a Systemcore is required for
-much of this work—and obtaining one is currently not possible. Rather than letting that become
-a roadblock, we set out to overcome it by creating a Systemcore clone using a Raspberry Pi
-flashed with the Systemcore operating system.
-
-If your team is in the same situation, you've come to the right place! This guide will walk you
-through the process of building and setting up your own Systemcore clone so you can start
-developing and testing earlier.
 
 ## Assumptions
 - You will be expected to know how to copy / "burn" an image to an sd card using either balena etcher or raspberry pi. The instructions to do that are not in the scope of this guide. Burn the default "base" image on the main readme. 
@@ -20,11 +9,14 @@ developing and testing earlier.
 
 ## Step By Step Instructions
 
+- Burn the latest version of the SystemCore Base Image
+
 - Put the card in your raspberry pi once its been burned
 
 - Connect to the wireless network "SYSTEMCORE" using the password "PASSWORD" (upper case sensitive)
+- OR connect through ethernet
 
-- from the main dashboard click on the "terminal" app
+- from the main dashboard (robot.local) click on the "terminal" app
 
 - Create the mount point for the hidden partition
 ```
@@ -52,6 +44,7 @@ sudo mount /dev/mmcblk0p2 /mnt/hardware_boot
     sudo umount /mnt/hardware_boot
     sudo reboot
     ```
+- Open the folder for your can header (fd, no-fd, no-fd-plus)
 - Copy the contents from fd/systemcore-can-fd-setup or no-fd/systemcore-can-nofd-setup to the home directory of the pi from your local device using command line.
 ```
 For FD:
@@ -68,7 +61,7 @@ cd ~/systemcore-can-fd-setup
 or 
 cd ~/systemcore-can-nofd-setup 
 
-sudo ./install.sh
+sudo bash ./install.sh
 sudo reboot
 ```
 
@@ -91,11 +84,15 @@ systemctl is-active can-bringup robot
 ```
 - Update necessary firmware on the motor
     - CTRE
-        - Open pheonix tuner application
+        - Open pheonix tuner preview application
         - Connect to the robot using dashboard or ip address
-        - Update the firmeware to the latest 2026 Phoenix version ( I know this is confusing as we are supposed to be on 2027 ).
+        - Update the firmeware to the latest 2027 version
+    - REV
+        - Connect to the robot using dashboard or ip address
+        - Install the .ipk as an app on the main dashboard
+        - Open REV Hardware Client 2
+        - Install the 2027 SPARK MAX / SPARK Flex Firmware
 
 - Deploy robot code
-
-    - We've built some robot code for you that is an example project for both the Commands v2 and V3 frameworks. You can find the projects in the project_examples folder of this repo. Select the version that corresponds to your hardware. Deploy as normal.
+    - This project is forked from BobCat Robotics, they have included example projects for both the Commands v2 and V3 frameworks. You can find the projects in the project_examples folder of this repo. Select the version that corresponds to your hardware. Deploy as normal.
 

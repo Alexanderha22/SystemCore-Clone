@@ -10,6 +10,9 @@ fi
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
+sudo cp /etc/systemd/system/limelight_canbusprocess.service /etc/systemd/system/limelight_canbusprocess.service.bak
+sudo cp "$DIR/limelight_canbusprocess.service" /etc/systemd/system/limelight_canbusprocess.service
+
 echo "==> Installing /usr/local/sbin/diy-can-setup.sh"
 mkdir -p /usr/local/sbin
 install -m 0755 "$DIR/diy-can-setup.sh" /usr/local/sbin/diy-can-setup.sh
