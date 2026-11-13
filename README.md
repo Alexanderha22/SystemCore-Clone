@@ -2,6 +2,8 @@
 
 A simple project to run the SystemCore image on a Raspberry Pi with a CAN Hat
 
+This project is forked from [BobcatRobotics original project](https://github.com/BobcatRobotics/SystemCore-Clone). A new profile was added to work with a specific CAN hat as well as instructions to add support for other CAN hats. The limelight canbus service was modified to remove configurations that are incompatible with these can hats.
+
 ## Required Software
 
 The following software is required to create, flash, and use the SystemCore image.
